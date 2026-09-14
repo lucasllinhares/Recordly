@@ -1,4 +1,9 @@
-import { DownloadSimple as Download } from "@phosphor-icons/react";
+import {
+	CheckCircle,
+	DownloadSimple as Download,
+	LinkSimple as LinkIcon,
+	Spinner,
+} from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
 import {
 	DropdownMenu,
@@ -11,6 +16,7 @@ import type { useExportDimensions } from "../export/useExportDimensions";
 import type { useExportSession } from "../export/useExportSession";
 import type { useExportSettings } from "../export/useExportSettings";
 import type { useExportStatusViewModel } from "../export/useExportStatusViewModel";
+import type { useShareExportedFile } from "../export/useShareExportedFile";
 
 type Props = {
 	t: ReturnType<typeof useI18n>["t"];
@@ -29,6 +35,8 @@ type Props = {
 	handleStartExportFromDropdown: () => void;
 	revealExportedFile: () => void;
 	exportMessage: string | null;
+	shareState: ReturnType<typeof useShareExportedFile>["shareState"];
+	shareExportedFile: ReturnType<typeof useShareExportedFile>["shareExportedFile"];
 };
 
 export function EditorExportMenu(props: Props) {
@@ -49,6 +57,8 @@ export function EditorExportMenu(props: Props) {
 		handleStartExportFromDropdown,
 		revealExportedFile,
 		exportMessage,
+		shareState,
+		shareExportedFile,
 	} = props;
 	const {
 		exportQuality,
@@ -248,6 +258,52 @@ export function EditorExportMenu(props: Props) {
 							>
 								Done
 							</Button>
+						</div>
+						<div className="mt-2">
+							{shareState.status === "idle" || shareState.status === "error" ? (
+								<Button
+									type="button"
+									variant="outline"
+									onClick={() => shareExportedFile(exportedFilePath)}
+									className="h-8 w-full gap-1.5 border-foreground/10 bg-foreground/5 text-xs text-muted-foreground hover:bg-foreground/10"
+								>
+									<LinkIcon className="h-3.5 w-3.5" />
+									Compartilhar link
+								</Button>
+							) : shareState.status === "uploading" ? (
+								<Button
+									type="button"
+									variant="outline"
+									disabled
+									className="h-8 w-full gap-1.5 border-foreground/10 bg-foreground/5 text-xs text-muted-foreground"
+								>
+									<Spinner className="h-3.5 w-3.5 animate-spin" />
+									Enviando…
+								</Button>
+							) : (
+								<div className="flex items-center gap-2 rounded-md border border-emerald-500/20 bg-emerald-500/10 px-2.5 py-1.5">
+									<CheckCircle className="h-3.5 w-3.5 shrink-0 text-emerald-400" />
+									<a
+										href={shareState.url}
+										onClick={(e) => e.preventDefault()}
+										className="min-w-0 flex-1 truncate text-xs text-emerald-300"
+										title={shareState.url}
+									>
+										{shareState.url}
+									</a>
+									<Button
+										type="button"
+										variant="ghost"
+										onClick={() => navigator.clipboard.writeText(shareState.url)}
+										className="h-6 shrink-0 px-2 text-[11px] text-emerald-300 hover:bg-emerald-500/10"
+									>
+										Copiar
+									</Button>
+								</div>
+							)}
+							{shareState.status === "error" ? (
+								<p className="mt-1.5 text-[11px] text-red-400">{shareState.message}</p>
+							) : null}
 						</div>
 					</div>
 				) : (

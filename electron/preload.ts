@@ -949,6 +949,15 @@ contextBridge.exposeInMainWorld("electronAPI", {
 	revealInFolder: (filePath: string) => {
 		return ipcRenderer.invoke("reveal-in-folder", filePath);
 	},
+	getShareConfig: () => {
+		return ipcRenderer.invoke("share:get-config");
+	},
+	setShareConfig: (config: { apiUrl: string; apiToken?: string | null }) => {
+		return ipcRenderer.invoke("share:set-config", config);
+	},
+	uploadRecording: (filePath: string, title?: string | null) => {
+		return ipcRenderer.invoke("share:upload-recording", { filePath, title });
+	},
 	openRecordingsFolder: () => {
 		return ipcRenderer.invoke("open-recordings-folder");
 	},

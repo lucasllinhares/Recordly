@@ -10,6 +10,7 @@ import type { useExportDimensions } from "../export/useExportDimensions";
 import type { useExportSession } from "../export/useExportSession";
 import type { useExportSettings } from "../export/useExportSettings";
 import type { useExportStatusViewModel } from "../export/useExportStatusViewModel";
+import type { useShareExportedFile } from "../export/useShareExportedFile";
 import type { useVideoEditorPresets } from "../presets/useVideoEditorPresets";
 import type { useProjectState } from "../state/useProjectState";
 import { APP_HEADER_ICON_BUTTON_CLASS, DiscordLinkButton, FeedbackDialog } from "../TutorialHelp";
@@ -47,6 +48,8 @@ type Props = {
 	handleStartExportFromDropdown: () => void;
 	revealExportedFile: () => void;
 	exportMessage: string | null;
+	shareState: ReturnType<typeof useShareExportedFile>["shareState"];
+	shareExportedFile: ReturnType<typeof useShareExportedFile>["shareExportedFile"];
 };
 
 export function EditorHeader(props: Props) {
@@ -81,6 +84,8 @@ export function EditorHeader(props: Props) {
 		handleStartExportFromDropdown,
 		revealExportedFile,
 		exportMessage,
+		shareState,
+		shareExportedFile,
 	} = props;
 	const {
 		isEditingProjectName,
@@ -220,6 +225,8 @@ export function EditorHeader(props: Props) {
 					handleStartExportFromDropdown={handleStartExportFromDropdown}
 					revealExportedFile={revealExportedFile}
 					exportMessage={exportMessage}
+					shareState={shareState}
+					shareExportedFile={shareExportedFile}
 				/>
 			</div>
 		</div>

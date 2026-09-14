@@ -7,6 +7,7 @@ import { registerPermissionHandlers } from "./register/permissions";
 import { registerProjectHandlers } from "./register/project";
 import { registerRecordingHandlers } from "./register/recording";
 import { registerSettingsHandlers } from "./register/settings";
+import { registerShareHandlers } from "./register/share";
 import { registerSourceHandlers } from "./register/sources";
 import {
 	selectedSource,
@@ -71,4 +72,5 @@ export function registerIpcHandlers(
 	registerCaptionHandlers();
 	registerProjectHandlers();
 	registerSettingsHandlers();
+	registerShareHandlers();
 }

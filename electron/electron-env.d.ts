@@ -869,6 +869,20 @@ interface Window {
 		revealInFolder: (
 			filePath: string,
 		) => Promise<{ success: boolean; error?: string; message?: string }>;
+		getShareConfig: () => Promise<{ configured: boolean; apiUrl: string | null }>;
+		setShareConfig: (config: {
+			apiUrl: string;
+			apiToken?: string | null;
+		}) => Promise<{ success: boolean; error?: string }>;
+		uploadRecording: (
+			filePath: string,
+			title?: string | null,
+		) => Promise<{
+			success: boolean;
+			url?: string;
+			needsConfig?: boolean;
+			error?: string;
+		}>;
 		openRecordingsFolder: () => Promise<{ success: boolean; error?: string; message?: string }>;
 		getRecordingsDirectory: () => Promise<{
 			success: boolean;

@@ -13,6 +13,7 @@ import { useExportRunner } from "./useExportRunner";
 import type { useExportSession } from "./useExportSession";
 import type { useExportSettings } from "./useExportSettings";
 import { useExportStatusViewModel } from "./useExportStatusViewModel";
+import { useShareExportedFile } from "./useShareExportedFile";
 import { useSmokeExportAutomation } from "./useSmokeExportAutomation";
 
 type Input = {
@@ -94,6 +95,7 @@ export function useEditorExportController(input: Input) {
 		t: input.t,
 		active: status.isLightningExportInProgress,
 	});
+	const share = useShareExportedFile();
 
-	return { dialogActions, status, exportMessage };
+	return { dialogActions, status, exportMessage, share };
 }
