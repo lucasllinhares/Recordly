@@ -1,0 +1,5 @@
+Coloque aqui fotos reais para substituir as ilustrações e rode doodle.py de novo:
+- itaipu.jpg  (Gurgel Itaipu E150)
+- gurgel.jpg  (retrato de João Gurgel)
+- bugue.jpg   (bugue Gurgel de fibra de vidro)
+- usina.jpg   (usina de Itaipu em construção)
